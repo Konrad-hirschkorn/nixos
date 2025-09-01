@@ -282,11 +282,11 @@ in {
       Type = "oneshot";
       ExecStart = "${pkgs.writeShellScript "claude-mcp-setup" ''
         # Add servers with user scope for global access
-        claude mcp add nixos-search --scope user -- ssh tim-server "docker exec -i mcp-server-host sh -c 'exec 2>/dev/null; /app/servers/mcp-nixos/venv/bin/python3 -m mcp_nixos.server'"
+        claude mcp add nixos-search --scope user -- ssh konrad-server "docker exec -i mcp-server-host sh -c 'exec 2>/dev/null; /app/servers/mcp-nixos/venv/bin/python3 -m mcp_nixos.server'"
 
-        claude mcp add tailwind-svelte --scope user -- ssh tim-server "docker exec -i mcp-server-host node /app/servers/tailwind-svelte-assistant/dist/index.js"
+        claude mcp add tailwind-svelte --scope user -- ssh konrad-server "docker exec -i mcp-server-host node /app/servers/tailwind-svelte-assistant/dist/index.js"
 
-        claude mcp add context7 --scope user -- ssh tim-server "docker exec -i mcp-server-host npx -y @upstash/context7-mcp"
+        claude mcp add context7 --scope user -- ssh konrad-server "docker exec -i mcp-server-host npx -y @upstash/context7-mcp"
       ''}";
     };
     Install = {

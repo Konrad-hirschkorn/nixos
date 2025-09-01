@@ -9,7 +9,7 @@
   sops.defaultSopsFile = ./secrets.yaml;
   sops.defaultSopsFormat = "yaml";
   sops.age.sshKeyPaths = ["/etc/ssh/nixos_personal_sops_key"];
-  # sops.age.keyFile      = "/home/tim/.config/sops/age/keys.txt";
+  # sops.age.keyFile      = "/home/konrad/.config/sops/age/keys.txt";
   # sops.age.generateKey  = true;
 
   sops.secrets."aimodels/OPENAI_API_KEY" = {};

@@ -34,7 +34,7 @@
     bluetooth.settings = {
       General = {
         # The string that remote devices will see
-        Name = "Tim-Raspberry-Pi";
+        Name = "konrad-Raspberry-Pi";
         DisablePlugins = "hostname";
       };
     };

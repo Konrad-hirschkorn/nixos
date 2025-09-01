@@ -8,7 +8,7 @@
   imports = [
     (import ../common/disko.nix {inherit disks;})
     ./desktop-only-imports.nix
-    ./tim-laptop-hardware-configuration.nix
+    ./konrad-laptop-hardware-configuration.nix
   ];
 
   hardware = {
@@ -18,7 +18,7 @@
     bluetooth.settings = {
       General = {
         # The string that remote devices will see
-        Name = "Tim-Laptop";
+        Name = "konrad-Laptop";
         DisablePlugins = "hostname";
       };
     };

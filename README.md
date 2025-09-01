@@ -37,7 +37,7 @@ ssh nixos@<hostname>
 Clone the repository from GitHub to a temporary directory, such as `/tmp`.
 
 ```bash
-git clone https://github.com/TimLisemer/NixOs.git /tmp/nixos
+git clone https://github.com/Konrad-hirschkorn/nixos.git /tmp/nixos
 ```
 
 ### 3.1 Optionally Generate Hardware Configuration:
@@ -54,13 +54,13 @@ Move the generated file, for example, into `/tmp/nixos/hosts` with an appropriat
 
 Use Disko to mount the filesystem by running the following commands. Ensure you specify the correct disk(s) for your machine.
 
-- **For `tim-laptop` (single disk):**
+- **For `konrad-laptop` (single disk):**
 
 ```bash
 sudo nix --extra-experimental-features 'nix-command flakes' run github:nix-community/disko -- --mode zap_create_mount /tmp/nixos/common/disko.nix --arg disks '[ "/dev/nvme0n1" ]'
 ```
 
-- **For `tim-pc` (dual disk):**
+- **For `konrad-pc` (dual disk):**
 
 ```bash
 sudo nix --extra-experimental-features 'nix-command flakes' run github:nix-community/disko -- --mode zap_create_mount /tmp/nixos/common/disko.nix --arg disks '[ "/dev/nvme0n1" "/dev/nvme1n1" ]'
@@ -75,16 +75,16 @@ sudo mkdir -p /mnt/etc/nixos
 sudo cp -a /tmp/nixos/* /mnt/etc/nixos/
 ```
 
-- **For `tim-laptop`:**
+- **For `konrad-laptop`:**
 
 ```bash
-sudo nixos-install --flake '/mnt/etc/nixos/flake.nix#tim-laptop'
+sudo nixos-install --flake '/mnt/etc/nixos/flake.nix#konrad-laptop'
 ```
 
-- **For `tim-pc`:**
+- **For `konrad-pc`:**
 
 ```bash
-sudo nixos-install --flake '/mnt/etc/nixos/flake.nix#tim-pc'
+sudo nixos-install --flake '/mnt/etc/nixos/flake.nix#konrad-pc'
 ```
 
 ### 6. Finalize Installation:
@@ -107,4 +107,4 @@ After the initial setup, you can rebuild the configuration with the following co
 sudo nixos-rebuild switch
 ```
 
-This setup allows you to manage different machines (e.g., `tim-pc`, `tim-laptop`) using a shared configuration repository with host-specific adjustments.
+This setup allows you to manage different machines (e.g., `konrad-pc`, `konrad-laptop`) using a shared configuration repository with host-specific adjustments.

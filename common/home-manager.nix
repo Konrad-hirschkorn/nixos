@@ -48,16 +48,16 @@ in {
       };
     }
     // (lib.optionalAttrs isHomeAssistant {
-      systemd.user.services.tim-server-tunnel = {
+      systemd.user.services.konrad-server-tunnel = {
         Unit = {
-          Description = "Persistent SSH tunnel to tim-server";
+          Description = "Persistent SSH tunnel to konrad-server";
         };
         Install = {
           WantedBy = ["default.target"];
         };
         Service = {
           ExecStartPre = "${pkgs.coreutils}/bin/chmod 600 %h/.ssh/id_ed25519";
-          ExecStart = "${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -N -i %h/.ssh/id_ed25519 -R *:8123:localhost:8123 -L 0.0.0.0:9001:tim-server:9001 tim@tim-server";
+          ExecStart = "${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -N -i %h/.ssh/id_ed25519 -R *:8123:localhost:8123 -L 0.0.0.0:9001:konrad-server:9001 konrad@konrad-server";
           Restart = "always";
           RestartSec = "5s";
         };

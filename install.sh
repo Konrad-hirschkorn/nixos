@@ -140,10 +140,10 @@ nixos_install() {
 # main dispatcher  ------------------------------------------------------------
 ###############################################################################
 declare -A DEFAULT_DISKS=(
-    ["tim-server"]="/dev/sda"
-    ["tim-pc"]="/dev/nvme0n1 /dev/nvme1n1"
-    ["tim-laptop"]="/dev/nvme0n1 /dev/nvme1n1"
-    ["tim-homeassistant"]="/dev/nvme0n1"
+    ["konrad-server"]="/dev/sda"
+    ["konrad-pc"]="/dev/nvme0n1 /dev/nvme1n1"
+    ["konrad-laptop"]="/dev/nvme0n1 /dev/nvme1n1"
+    ["konrad-homeassistant"]="/dev/nvme0n1"
     ["qemu"]="/dev/vda"
 )
 
@@ -157,15 +157,15 @@ the default disk list for that host is used.  Supplying disks overrides
 the defaults.
 
 Available hosts and their default disks:
-  tim-server        -> /dev/sda
-  tim-pc            -> /dev/nvme0n1 /dev/nvme1n1
-  tim-laptop        -> /dev/nvme0n1 /dev/nvme1n1
-  tim-homeassistant -> /dev/nvme0n1
+  konrad-server        -> /dev/sda
+  konrad-pc            -> /dev/nvme0n1 /dev/nvme1n1
+  konrad-laptop        -> /dev/nvme0n1 /dev/nvme1n1
+  konrad-homeassistant -> /dev/nvme0n1
   qemu              -> /dev/vda
 
 Example:
-  ./install.sh tim-pc
-  ./install.sh tim-pc /dev/nvme0n1 /dev/nvme1n1
+  ./install.sh konrad-pc
+  ./install.sh konrad-pc /dev/nvme0n1 /dev/nvme1n1
 EOF
 }
 

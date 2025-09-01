@@ -106,8 +106,8 @@ with lib.hm.gvariant; {
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///home/tim/Pictures/Wallpapers/Desktop/blobs-l.svg";
-      picture-uri-dark = "file:///home/tim/Pictures/Wallpapers/Desktop/blobs-d.svg";
+      picture-uri = "file:///home/konrad/Pictures/Wallpapers/Desktop/blobs-l.svg";
+      picture-uri-dark = "file:///home/konrad/Pictures/Wallpapers/Desktop/blobs-d.svg";
       primary-color = "#241f31";
       secondary-color = "#000000";
     };
@@ -158,7 +158,7 @@ with lib.hm.gvariant; {
     "org/gnome/desktop/screensaver" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///home/tim/Pictures/Wallpapers/Desktop/blobs-d.svg";
+      picture-uri = "file:///home/konrad/Pictures/Wallpapers/Desktop/blobs-d.svg";
       primary-color = "#241f31";
       secondary-color = "#000000";
     };
@@ -380,7 +380,7 @@ with lib.hm.gvariant; {
     };
 
     "org/gnome/simple-scan" = {
-      save-directory = "file:///home/tim/Documents/Scan";
+      save-directory = "file:///home/konrad/Documents/Scan";
       save-format = "application/pdf";
     };
 

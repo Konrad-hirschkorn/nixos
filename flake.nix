@@ -96,10 +96,10 @@
     # Set IP Addresses for each host here, this will also be imported into pihole locale dns
     # ────────────────────────────────────────────────────────────────
     hostIps = {
-      "tim-laptop" = "10.0.0.25";
-      "tim-pc" = "10.0.0.3";
-      "tim-server" = "142.132.234.128";
-      "tim-pi4" = "10.0.0.76";
+      "konrad-laptop" = "10.0.0.25";
+      "konrad-pc" = "10.0.0.3";
+      "konrad-server" = "142.132.234.128";
+      "konrad-pi4" = "10.0.0.76";
       "homeassistant-yellow" = "10.0.0.2";
       "traefik.local.yakweide.de" = "10.0.0.2";
       "pihole.local.yakweide.de" = "10.0.0.2";
@@ -117,9 +117,9 @@
     # ────────────────────────────────────────────────────────────────
     users = {
       tim = {
-        fullName = "Tim Lisemer";
-        gitUsername = "timlisemer";
-        gitEmail = "timlisemer@gmail.com";
+        fullName = "Konrad Hirschkorn";
+        gitUsername = "Konrad-hirschkorn";
+        gitEmail = "konrad.hirschkorn@gmail.com";
         hashedPassword = "$6$fhbC3/uvj6gKqkYC$Kh4HKuYYbKdaag/D7yWP7VZAIdS9oGWudxiyy1HPsH0mUaTEf6X/QzNOM6Su0RhzvT4fXKNrj3gFt.iGpKGIj0"; # sha-512 crypt
         authorizedKeys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEae4h0Uk6x/lrmw0PZv/7GfWyLuEAVoc70AC4ykyFtX TimLisemer"
@@ -181,45 +181,45 @@
     # Host Configurations
     # ────────────────────────────────────────────────────────────────
     nixosConfigurations = {
-      tim-laptop = self.mkSystem {
-        hostFile = ./hosts/tim-laptop.nix;
+      konrad-laptop = self.mkSystem {
+        hostFile = ./hosts/konrad-laptop.nix;
         system = "x86_64-linux";
         disks = ["/dev/nvme0n1"];
-        hostName = "tim-laptop";
+        hostName = "konrad-laptop";
         backupPaths = backupPaths;
         inherit users;
       };
 
-      tim-pc = self.mkSystem {
-        hostFile = ./hosts/tim-pc.nix;
+      konrad-pc = self.mkSystem {
+        hostFile = ./hosts/konrad-pc.nix;
         system = "x86_64-linux";
         disks = ["/dev/nvme0n1" "/dev/nvme1n1"];
-        hostName = "tim-pc";
+        hostName = "konrad-pc";
         backupPaths = backupPaths;
         inherit users;
       };
 
-      tim-server = self.mkSystem {
-        hostFile = ./hosts/tim-server.nix;
+      konrad-server = self.mkSystem {
+        hostFile = ./hosts/konrad-server.nix;
         system = "x86_64-linux";
         disks = ["/dev/sda"];
-        hostName = "tim-server";
+        hostName = "konrad-server";
         backupPaths = backupPaths;
         inherit users;
       };
 
-      tim-wsl = self.mkSystem {
-        hostFile = ./hosts/tim-wsl.nix;
+      konrad-wsl = self.mkSystem {
+        hostFile = ./hosts/konrad-wsl.nix;
         system = "x86_64-linux";
-        hostName = "tim-wsl";
+        hostName = "konrad-wsl";
         backupPaths = backupPaths;
         inherit users;
       };
 
-      tim-pi4 = self.mkSystem {
+      konrad-pi4 = self.mkSystem {
         hostFile = ./hosts/rpi4.nix;
         system = "aarch64-linux";
-        hostName = "tim-pi4";
+        hostName = "konrad-pi4";
         backupPaths = backupPaths;
         inherit users;
       };
@@ -276,11 +276,11 @@
       installer = let
         system = "x86_64-linux";
         pkgs = import nixpkgs-stable {inherit system;};
-        hosts = ["tim-laptop" "tim-pc" "tim-server" "greeter"];
+        hosts = ["konrad-laptop" "konrad-pc" "konrad-server" "greeter"];
         hostDisks = {
-          "tim-laptop" = ["/dev/nvme0n1"];
-          "tim-pc" = ["/dev/nvme0n1" "/dev/nvme1n1"];
-          "tim-server" = ["/dev/sda"];
+          "konrad-laptop" = ["/dev/nvme0n1"];
+          "konrad-pc" = ["/dev/nvme0n1" "/dev/nvme1n1"];
+          "konrad-server" = ["/dev/sda"];
           "greeter" = ["/dev/sda"];
         };
       in

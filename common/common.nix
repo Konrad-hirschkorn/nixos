@@ -132,22 +132,22 @@ in {
   # Syncthing (disabled by default)
   services.syncthing = {
     enable = false;
-    user = "tim";
-    dataDir = "/home/tim";
-    configDir = "/home/tim/.config/syncthing";
+    user = "konrad";
+    dataDir = "/home/konrad";
+    configDir = "/home/konrad/.config/syncthing";
     overrideDevices = true;
     overrideFolders = true;
     settings = {
       devices = {
-        "tim-server" = {
+        "konrad-server" = {
           id = "ZKX6K7U-XPIMO7N-QM7KBU7-5OPVX7S-3E4UDW7-YKQBR2P-ZU4DC3F-ZYC34A3";
           autoAcceptFolders = true;
         };
       };
       folders = {
         "Home" = {
-          path = "/home/tim";
-          devices = ["tim-server"];
+          path = "/home/konrad";
+          devices = ["konrad-server"];
           addresses = ["tcp://10.0.0.2:22000"];
         };
       };

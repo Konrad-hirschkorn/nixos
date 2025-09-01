@@ -25,7 +25,7 @@
 
   # Machine specific configurations
   wsl.enable = true;
-  wsl.defaultUser = "tim";
+  wsl.defaultUser = "konrad";
   wsl.docker-desktop.enable = true;
   environment.variables.WSL = "1";
   wsl.wslConf.network.generateHosts = false;

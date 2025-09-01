@@ -11,11 +11,11 @@ alias term='ghostty'
 alias terminal='ghostty'
 alias nixos='cd ~/Coding/Other/nixos'
 alias iocto='cd ~/Coding/iocto'
-alias install_tim_server='nix run nixpkgs#nixos-anywhere -- --flake /etc/nixos#tim-server root@142.132.234.128'
+alias install_konrad_server='nix run nixpkgs#nixos-anywhere -- --flake /etc/nixos#konrad-server root@142.132.234.128'
 alias install_homeassistant_yellow='nix run nixpkgs#nixos-anywhere -- --flake /etc/nixos#homeassistant-yellow nixos@homeassistant-yellow'
 alias nix_clean='sudo nix-collect-garbage -d && sudo nix-store --gc && sudo nix-store --optimize && sudo nix-store --verify --check-contents'
 alias git_amend='git amend'
-alias wake_tim-pc='wol 40:B0:76:DC:79:AA'
+alias wake_konrad-pc='wol 40:B0:76:DC:79:AA'
 
 if [[ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]]; then
 	alias logout='hyprctl dispatch exit'
@@ -606,9 +606,9 @@ ssh() {
 		return 1
 	fi
 
-	# special handling for tim-pc: use connect_tim_pc helper with Wake-on-LAN
-	if [[ "$target" == "tim-pc" || "$target" == "pc" || "$target" == "$USER@tim-pc" || "$target" == "$USER@pc" ]]; then
-		connect_tim_pc "$@"
+	# special handling for konrad-pc: use connect_konrad__pc helper with Wake-on-LAN
+	if [[ "$target" == "konrad-pc" || "$target" == "pc" || "$target" == "$USER@konrad-pc" || "$target" == "$USER@pc" ]]; then
+		connect_konrad__pc "$@"
 		return
 	fi
 
@@ -642,38 +642,38 @@ rebuild_remote() {
 alias remote_rebuild='rebuild_remote'
 # ---------------------------------------------------------------------------
 
-# --- ssh helper: wake tim-pc via WoL and SSH in when reachable ---------------
-connect_tim_pc() {
+# --- ssh helper: wake konrad-pc via WoL and SSH in when reachable ---------------
+connect_konrad__pc() {
 	local max_attempts=5  # total Wake-on-LAN attempts
 	local ping_timeout=30 # seconds to wait after each WoL
 	local attempt=1
 
-	echo "Trying to reach tim-pc (10.0.0.3)..."
+	echo "Trying to reach konrad-pc (10.0.0.3)..."
 	if ping -c 1 -W 1 10.0.0.3 >/dev/null 2>&1; then
-		echo "tim-pc is already online."
+		echo "konrad-pc is already online."
 		command ssh $USER@10.0.0.3 "$@"
 		return
 	fi
 
 	while ((attempt <= max_attempts)); do
 		echo "Wake attempt #$attempt - sending magic packet."
-		wake_tim-pc
+		wake_konrad-pc
 
-		echo "Waiting up to ${ping_timeout}s for tim-pc to respond..."
+		echo "Waiting up to ${ping_timeout}s for konrad-pc to respond..."
 		for ((elapsed = 0; elapsed < ping_timeout; elapsed++)); do
 			if ping -c 1 -W 1 10.0.0.3 >/dev/null 2>&1; then
-				echo "tim-pc is now online after ${elapsed}s."
+				echo "konrad-pc is now online after ${elapsed}s."
 				command ssh $USER@10.0.0.3 "$@"
 				return
 			fi
 			sleep 1
 		done
 
-		echo "No response from tim-pc yet."
+		echo "No response from konrad-pc yet."
 		((attempt++))
 	done
 
-	echo "Failed to reach tim-pc after ${max_attempts} wake attempts."
+	echo "Failed to reach konrad-pc after ${max_attempts} wake attempts."
 	return 1
 }
 # ---------------------------------------------------------------------------
@@ -690,9 +690,9 @@ transfer() {
 	# map the user-friendly host keyword to its real user@host string
 	local remote
 	case "$target" in
-	tim-server | server) remote="$USER@142.132.234.128" ;;
-	tim-pc | pc) remote="$USER@10.0.0.3" ;;
-	tim-laptop | laptop) remote="$USER@10.0.0.25" ;;
+	konrad-server | server) remote="$USER@142.132.234.128" ;;
+	konrad-pc | pc) remote="$USER@10.0.0.3" ;;
+	konrad-laptop | laptop) remote="$USER@10.0.0.25" ;;
 	homeassistant) remote="$USER@10.0.0.2" ;;
 	rpi4) remote="$USER@10.0.0.87" ;;
 	*) remote="$target" ;; # already user@host or raw host

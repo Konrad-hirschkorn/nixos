@@ -124,7 +124,7 @@
 
       # copy flake to target
       mkdir -p /mnt/etc/nixos
-      git clone https://github.com/TimLisemer/NixOs.git /mnt/etc/nixos/
+      git clone https://github.com/Konrad-hirschkorn/nixos.git /mnt/etc/nixos/
       rm -f /mnt/etc/nixos/flake.lock
 
       # install the system
