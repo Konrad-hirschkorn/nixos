@@ -144,25 +144,6 @@
     };
 
     # --------------------------------------------------------------------------
-    # yakweide-discord-bot
-    # --------------------------------------------------------------------------
-    yakweide-discord-bot = {
-      image = "ghcr.io/yakweide/yakweide-discord-bot:latest";
-      autoStart = true;
-
-      autoRemoveOnStop = false; # prevent implicit --rm
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.4"];
-
-      volumes = [
-        "/mnt/docker-data/volumes/yakweide-discord-bot:/app/:rw"
-      ];
-
-      environmentFiles = [
-        "/run/secrets/yakweideENV"
-      ];
-    };
-
-    # --------------------------------------------------------------------------
     # vaultwarden
     # --------------------------------------------------------------------------
     vaultwarden = {
