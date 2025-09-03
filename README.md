@@ -72,19 +72,21 @@ Create the necessary directories and copy the configuration to the target filesy
 
 ```bash
 sudo mkdir -p /mnt/etc/nixos
+```
+```bash
 sudo cp -a /tmp/nixos/* /mnt/etc/nixos/
 ```
 
 - **For `konrad-laptop`:**
 
 ```bash
-sudo nixos-install --flake '/mnt/etc/nixos/flake.nix#konrad-laptop'
+sudo nixos-install --flake '/mnt/etc/nixos#konrad-laptop'
 ```
 
 - **For `konrad-pc`:**
 
 ```bash
-sudo nixos-install --flake '/mnt/etc/nixos/flake.nix#konrad-pc'
+sudo nixos-install --flake '/mnt/etc/nixos#konrad-pc'
 ```
 
 ### 6. Finalize Installation:
