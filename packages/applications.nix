@@ -37,7 +37,6 @@ in {
     google-chrome
     # discord
     webcord-vencord
-    spotify
     # inputs.claude.packages.${system}.claude-desktop-with-fhs
     arduino-ide
     qtcreator
@@ -46,6 +45,7 @@ in {
     jetbrains.rust-rover
     jetbrains.idea-community
     jetbrains.pycharm-community
+    polychromatic
   ];
 
   programs.steam.enable = true;

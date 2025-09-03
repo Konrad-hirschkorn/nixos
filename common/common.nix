@@ -159,10 +159,13 @@ in {
       isNormalUser = true;
       description = user.fullName;
       hashedPassword = user.hashedPassword;
-      extraGroups = ["networkmanager" "wheel" "dialout" "docker"];
+      extraGroups = ["networkmanager" "wheel" "dialout" "docker" "plugdev"];
       openssh.authorizedKeys.keys = user.authorizedKeys or [];
     })
     users;
+
+  hardware.openrazer.enable = true;
+  hardware.openrazer.users = ["konrad"]; # dein Username
 
   environment.systemPackages = with pkgs; [
     git

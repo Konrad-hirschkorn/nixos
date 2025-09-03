@@ -125,56 +125,24 @@
     };
 
     # -------------------------------------------------------------------------
-    # portainer_agent
+    # portainer
     # -------------------------------------------------------------------------
-    portainer_agent = {
-      image = "portainer/agent:latest";
+    portainer = {
+      image = "portainer/portainer-ce:latest"; # Or use :lts for stability
       autoStart = true;
 
       autoRemoveOnStop = false; # prevent implicit --rm
       extraOptions = ["--network=docker-network" "--ip=172.18.0.3"];
 
-      ports = ["9001:9001"];
-
-      volumes = [
-        "/mnt/docker-data/volumes/portainer:/var/lib/docker/volumes:rw"
-        "/var/run/docker.sock:/var/run/docker.sock:rw"
-      ];
-      # No environment values needed for the agent
-    };
-
-    # --------------------------------------------------------------------------
-    # vaultwarden
-    # --------------------------------------------------------------------------
-    vaultwarden = {
-      image = "vaultwarden/server:latest";
-      autoStart = true;
-
-      autoRemoveOnStop = false; # prevent implicit --rm
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.5"];
-
       ports = [
-        "4743:4743" # hostPort:containerPort
+        "8000:8000"
+        "9443:9443"
       ];
 
       volumes = [
-        "/mnt/docker-data/volumes/vaultwarden:/data:rw"
+        "/var/run/docker.sock:/var/run/docker.sock"
+        "/mnt/docker-data/volumes/portainer_data:/data"
       ];
-
-      environmentFiles = [
-        "/run/secrets/vaultwardenEnv"
-      ];
-
-      environment = {
-        SIGNUPS_ALLOWED = "false";
-        INVITATIONS_ALLOWED = "true";
-
-        ROCKET_PROFILE = "release";
-        ROCKET_ADDRESS = "0.0.0.0";
-        ROCKET_PORT = "4743";
-
-        DEBIAN_FRONTEND = "noninteractive";
-      };
     };
 
     # ----------------------------------------------------------
@@ -204,190 +172,5 @@
 
     #  environment = {EULA = "TRUE";}; # Accept Mojang EULA
     # };
-
-    immich-server = {
-      image = "ghcr.io/immich-app/immich-server:release";
-      autoStart = true;
-
-      autoRemoveOnStop = false; # prevent implicit --rm
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.8"];
-
-      ports = [
-        "2283:2283"
-      ];
-
-      volumes = [
-        "/mnt/docker-data/volumes/immich/upload_location:/usr/src/app/upload:rw"
-        "/etc/localtime:/etc/localtime:ro"
-      ];
-
-      environmentFiles = [
-        "/run/secrets/immichENV"
-      ];
-
-      environment = {
-        "DB_HOSTNAME" = "immich_postgres";
-      };
-    };
-
-    immich-machine-learning = {
-      image = "ghcr.io/immich-app/immich-machine-learning:release";
-      autoStart = true;
-
-      autoRemoveOnStop = false; # prevent implicit --rm
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.9"];
-
-      volumes = [
-        "/mnt/docker-data/volumes/immich/model-cache:/cache:rw"
-      ];
-
-      environmentFiles = [
-        "/run/secrets/immichENV"
-      ];
-
-      environment = {
-      };
-    };
-
-    redis = {
-      image = "docker.io/valkey/valkey:8-bookworm@sha256:ff21bc0f8194dc9c105b769aeabf9585fea6a8ed649c0781caeac5cb3c247884";
-      autoStart = true;
-
-      volumes = [
-        "/mnt/docker-data/volumes/redis:/data:rw"
-      ];
-
-      autoRemoveOnStop = false; # prevent implicit --rm
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.10"];
-    };
-
-    immich_postgres = {
-      image = "ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0@sha256:fa4f6e0971f454cd95fec5a9aaed2ed93d8f46725cc6bc61e0698e97dba96da1";
-      autoStart = true;
-
-      autoRemoveOnStop = false; # prevent implicit --rm
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.11"];
-
-      volumes = [
-        "/mnt/docker-data/volumes/immich/database:/var/lib/postgresql/data:rw"
-      ];
-
-      environmentFiles = [
-        "/run/secrets/immichENV"
-      ];
-
-      environment = {
-        "POSTGRES_INITDB_ARGS" = "--data-checksums";
-      };
-    };
-
-    # -------------------------------------------------------------------------
-    # librechat-mongodb
-    # -------------------------------------------------------------------------
-    librechat-mongodb = {
-      image = "mongo:6";
-      autoStart = true;
-
-      autoRemoveOnStop = false; # prevent implicit --rm
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.12"];
-
-      volumes = [
-        "/mnt/docker-data/volumes/librechat-mongodb:/data/db:rw"
-      ];
-
-      cmd = ["--quiet"];
-    };
-
-    # -------------------------------------------------------------------------
-    # librechat-meilisearch
-    # -------------------------------------------------------------------------
-    librechat-meilisearch = {
-      image = "getmeili/meilisearch:v1.9";
-      autoStart = true;
-
-      autoRemoveOnStop = false; # prevent implicit --rm
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.13"];
-
-      volumes = [
-        "/mnt/docker-data/volumes/librechat-meilisearch:/meili_data:rw"
-      ];
-
-      environmentFiles = [
-        "/run/secrets/librechatENV"
-      ];
-
-      environment = {
-        MEILI_ENV = "production";
-      };
-    };
-
-    # -------------------------------------------------------------------------
-    # librechat-api
-    # -------------------------------------------------------------------------
-    librechat-api = {
-      image = "ghcr.io/danny-avila/librechat:latest";
-      autoStart = true;
-
-      autoRemoveOnStop = false; # prevent implicit --rm
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.14"];
-
-      ports = [
-        "3080:3080"
-      ];
-
-      environmentFiles = [
-        "/run/secrets/librechatENV"
-      ];
-
-      volumes = [
-        "/mnt/docker-data/volumes/librechat-api/librechat.yaml:/app/librechat.yaml:rw"
-      ];
-
-      environment = {
-        PORT = "3080";
-        MONGO_URI = "mongodb://librechat-mongodb:27017/LibreChat";
-        MEILI_HOST = "http://librechat-meilisearch:7700";
-        ALLOW_REGISTRATION = "false";
-        # Basic Model Configuration
-        OPENAI_MODELS = "o4-mini,o3,gpt-4.1-nano";
-        GOOGLE_MODELS = "gemini-2.5-pro,gemini-2.5-flash,gemini-2.5-flash-lite";
-      };
-    };
-
-    # -------------------------------------------------------------------------
-    # mcp-server-host
-    # -------------------------------------------------------------------------
-    mcp-server-host = {
-      image = "ghcr.io/timlisemer/mcp-server-host/mcp-server-host-linux-amd64:latest";
-      autoStart = true;
-
-      autoRemoveOnStop = false; # prevent implicit --rm
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.15"];
-
-      volumes = [
-        "/mnt/docker-data/volumes/mcp-server-host/workspace:/workspace:rw"
-        "/mnt/docker-data/volumes/mcp-server-host/data:/app/data:rw"
-        "/mnt/docker-data/volumes/mcp-server-host/logs:/var/log:rw"
-        "/mnt/docker-data/volumes/mcp-server-host/config:/app/config:ro"
-      ];
-
-      environment = {
-        LOG_LEVEL = "info";
-        WORKSPACE_PATH = "/workspace";
-        MCP_SERVERS_CONFIG = "/app/config/servers.json";
-      };
-    };
   };
-
-  system.activationScripts.copyLibrechatYaml = lib.stringAfter ["var"] ''
-    mkdir -p /mnt/docker-data/volumes/librechat-api
-    cp ${./../files/librechat.yaml} /mnt/docker-data/volumes/librechat-api/librechat.yaml
-    chmod 644 /mnt/docker-data/volumes/librechat-api/librechat.yaml
-  '';
-
-  system.activationScripts.copyMcpServerConfig = lib.stringAfter ["var"] ''
-    mkdir -p /mnt/docker-data/volumes/mcp-server-host/config
-    cp ${./../files/mcp-server-host/servers.json} /mnt/docker-data/volumes/mcp-server-host/config/servers.json
-    chmod 644 /mnt/docker-data/volumes/mcp-server-host/config/servers.json
-  '';
 }
