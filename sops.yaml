@@ -1,7 +1,9 @@
+# sops.yaml  (or .sops.yaml)
 keys:
-  - &tim 2200D9B7A09A5177D231364C768D588B91DF7CE5
+  - &konrad age13sf35tlpdqw0hew930yyj4nt6nnsupv3gw6zxhj9k6vx9cykwuvs9u54tl
+
 creation_rules:
-  path_regex: secrets/secrets.yaml$
-  key_groups:
-  - pgp:
-    - *tim
+  - path_regex: (^|/)secrets/secrets\.ya?ml$
+    key_groups:
+      - age:
+          - *konrad

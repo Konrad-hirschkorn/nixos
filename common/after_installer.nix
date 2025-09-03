@@ -39,7 +39,6 @@
 
     networkmanager.ensureProfiles.environmentFiles = [
       "/run/secrets/wifiENV"
-      "/run/secrets/rendered/wireguardENV"
     ];
 
     networkmanager.ensureProfiles.profiles = {
