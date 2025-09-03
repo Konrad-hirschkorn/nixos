@@ -76,13 +76,6 @@ in {
             installation_mode = "force_installed";
             default_area = "menupanel";
           };
-
-          # ffreszoom:
-          "{b2e3360c-a72c-4ba4-813c-603a1fa34356}" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/ffreszoom/latest.xpi";
-            installation_mode = "force_installed";
-            default_area = "menupanel";
-          };
           # floccus:
           "floccus@handmadeideas.org" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/floccus/latest.xpi";
@@ -118,6 +111,12 @@ in {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
             installation_mode = "force_installed";
             default_area = "navbar";
+          };
+          # Restore Google Maps on Search
+          "restoreGoogleMaps@stephanmc.com" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/restore-google-maps-on-search/latest.xpi";
+            installation_mode = "force_installed";
+            default_area = "menupanel";
           };
         };
 
