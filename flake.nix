@@ -114,7 +114,7 @@
         fullName = "Konrad Hirschkorn";
         gitUsername = "Konrad-hirschkorn";
         gitEmail = "konrad.hirschkorn@gmail.com";
-        hashedPassword = "$6$SezpD3dRcA.3MqQn$TaZEwesB64CDcfmmwCKgY//9lYh0HsM/lei.umb8QeXfM1N7J703Ndr.6kzLcMIjzLYCJWhQ.PgSB9p5oZIg30"; # sha-512 crypt
+        hashedPassword = "$6$Kz1nBiLtUiNHtmei$cMGqIjNE9zoWrY4wy5LQT7gI2aGXczlsQajTfkaFgkDmmipyEuAeIHUS1MsuanmJnjEEYXdfOnjaoSLRHHoSO1"; # sha-512 crypt
         authorizedKeys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJtOfPmoYcQk2UkomDZoeOM6YE3EtYAsjMdfFs1KgREf KonradHirschkorn"
           # add more keys here …
