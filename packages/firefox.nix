@@ -63,9 +63,9 @@ in {
             installation_mode = "force_installed";
           };
           # Enhancer for YouTube
-          "enhancerforyoutube@maximerf.addons.mozilla.org" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/enhancer-for-youtube/latest.xpi";
+          "<IMPROVE_YOUTUBE_ID>" = {
             installation_mode = "force_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-addon/latest.xpi";
           };
 
           # User Agent Switcher and Manager:
@@ -107,6 +107,10 @@ in {
           "restoreGoogleMaps@stephanmc.com" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/restore-google-maps-on-search/latest.xpi";
             installation_mode = "force_installed";
+          };
+          "<RETURN_YT_DISLIKE_ID>" = {
+            installation_mode = "force_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/latest.xpi";
           };
         };
 
