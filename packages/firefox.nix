@@ -108,10 +108,24 @@ in {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/restore-google-maps-on-search/latest.xpi";
             installation_mode = "force_installed";
           };
-          "<RETURN_YT_DISLIKE_ID>" = {
-            installation_mode = "force_installed";
+          # Return YouTube Dislikes (two different extensions, in case one stops working)
+          "GUID_SELIVANOV" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/latest.xpi";
+            installation_mode = "force_installed";
+            default_area = "menupanel";
           };
+          "GUID_PETERSON" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-dislike/latest.xpi";
+            installation_mode = "force_installed";
+            default_area = "menupanel";
+          };
+        };
+      };
+    };
+  };
+}
+
+
         };
 
         /*
