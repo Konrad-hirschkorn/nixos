@@ -120,14 +120,6 @@ in {
             default_area = "menupanel";
           };
         };
-      };
-    };
-  };
-}
-
-
-
-
         /*
         ---- PREFERENCES ----
         */
