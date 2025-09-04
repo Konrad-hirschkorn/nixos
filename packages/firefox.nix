@@ -131,7 +131,7 @@ in {
         /*
         ---- PREFERENCES ----
         */
-        # Check about:config for options.
+        # Check  about:config for options.
         Preferences = {
           "browser.contentblocking.category" = {
             Value = "strict";
