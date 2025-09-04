@@ -109,7 +109,7 @@ in {
             installation_mode = "force_installed";
           };
           # Return YouTube Dislikes (two different extensions, in case one stops working)
-          "youtube-dislike@jimmypeterson" = {
+          "youtube-dislike@jimmypeterson.com" = {
             install_url = "https://addons.mozilla.org/en-US/firefox/addon/youtube-dislike/latest.xpi";
             installation_mode = "force_installed";
             default_area = "menupanel";
