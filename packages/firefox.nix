@@ -56,12 +56,12 @@ in {
         # Valid strings for installation_mode are "allowed", "blocked",
         # "force_installed" and "normal_installed".
         ExtensionSettings = {
-          "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
+          "*" = {installation_mode = "allowed";}; # blocks all addons except the ones specified below
           # Bitwarden:
           "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
             installation_mode = "force_installed";
-            default_area = "navbar";
+            default_area = "menupanel";
           };
           # Enhancer for YouTube
           "enhancerforyoutube@maximerf.addons.mozilla.org" = {
@@ -86,7 +86,7 @@ in {
           "idcac-pub@guus.ninja" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
             installation_mode = "force_installed";
-            default_area = "navbar";
+            default_area = "menupanel";
           };
           # Privacy Badger:
           "jid1-MnnxcxisBPnSXQ@jetpack" = {
