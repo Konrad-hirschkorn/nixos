@@ -56,67 +56,57 @@ in {
         # Valid strings for installation_mode are "allowed", "blocked",
         # "force_installed" and "normal_installed".
         ExtensionSettings = {
-          "*" = {installation_mode = "allowed";}; # blocks all addons except the ones specified below
+          "*" = {installation_mode = "blocked";}; # blocks all addons except the ones specified below
           # Bitwarden:
           "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
             installation_mode = "force_installed";
-            default_area = "menupanel";
           };
           # Enhancer for YouTube
           "enhancerforyoutube@maximerf.addons.mozilla.org" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/enhancer-for-youtube/latest.xpi";
             installation_mode = "force_installed";
-            default_area = "menupanel";
           };
 
           # User Agent Switcher and Manager:
           "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/user-agent-string-switcher/latest.xpi";
             installation_mode = "force_installed";
-            default_area = "menupanel";
           };
           # floccus:
           "floccus@handmadeideas.org" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/floccus/latest.xpi";
             installation_mode = "force_installed";
-            default_area = "menupanel";
           };
           # I still don't care about cookies:
           "idcac-pub@guus.ninja" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
             installation_mode = "force_installed";
-            default_area = "menupanel";
           };
           # Privacy Badger:
           "jid1-MnnxcxisBPnSXQ@jetpack" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
             installation_mode = "force_installed";
-            default_area = "menupanel";
           };
           # Proton VPN: Fast & Secure:
           "vpn@proton.ch" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/proton-vpn-firefox-extension/latest.xpi";
             installation_mode = "force_installed";
-            default_area = "menupanel";
           };
           # SponsorBlock for YouTube - Skip Sponsorships:
           "sponsorBlocker@ajay.app" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
             installation_mode = "force_installed";
-            default_area = "menupanel";
           };
           # uBlock Origin:
           "uBlock0@raymondhill.net" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
             installation_mode = "force_installed";
-            default_area = "navbar";
           };
           # Restore Google Maps on Search
           "restoreGoogleMaps@stephanmc.com" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/restore-google-maps-on-search/latest.xpi";
             installation_mode = "force_installed";
-            default_area = "menupanel";
           };
         };
 
