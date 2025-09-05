@@ -63,6 +63,7 @@ in {
             bradlc.vscode-tailwindcss
             kamadorueda.alejandra
             ritwickdey.liveserver
+            formulahendry.auto-rename-tag
 
             # unstable.google.geminicodeassist
           ]);
