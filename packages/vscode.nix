@@ -62,6 +62,8 @@ in {
             foxundermoon.shell-format
             bradlc.vscode-tailwindcss
             kamadorueda.alejandra
+            ritwickdey.liveserver
+
             # unstable.google.geminicodeassist
           ]);
       })
