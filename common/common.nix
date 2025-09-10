@@ -191,6 +191,7 @@ in {
     gnused
     getent
     nodejs
+    OMVF
   ];
 
   networking.hostName = hostName;
