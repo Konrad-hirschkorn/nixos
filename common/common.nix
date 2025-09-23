@@ -191,6 +191,7 @@ in {
     gnused
     getent
     nodejs
+    
   ];
 
   networking.hostName = hostName;
