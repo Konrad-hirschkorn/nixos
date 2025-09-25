@@ -4,7 +4,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # Unstable channel
     nixos-wsl.url = "github:nix-community/NixOS-WSL"; # NixOS WSL
     nixpkgs-oldvscode.url = "github:NixOS/nixpkgs/333d19c8b58402b94834ec7e0b58d83c0a0ba658"; # vscode 1.98.2
-    flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/latest";
+    flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/v3.1.0";
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
 
     alejandra = {
