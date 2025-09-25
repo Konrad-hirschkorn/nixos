@@ -57,7 +57,7 @@ Use Disko to mount the filesystem by running the following commands. Ensure you 
 - **For `konrad-laptop` (single disk):**
 
 ```bash
-sudo nix --extra-experimental-features 'nix-command flakes' run github:nix-community/disko -- --mode zap_create_mount /tmp/nixos/common/disko.nix --arg disks '[ "/dev/nvme0n1" ]'
+sudo nix --extra-experimental-features 'nix-command flakes' run github:nix-community/disko -- --mode destroy,format,mount /tmp/nixos/common/disko.nix --arg disks '[ "/dev/nvme0n1" ]'
 ```
 
 - **For `konrad-pc` (dual disk):**
