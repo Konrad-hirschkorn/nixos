@@ -146,7 +146,7 @@
     };
 
     # ----------------------------------------------------------
-    # minecraft-server (Paper 1.21.x)
+   # # minecraft-server (Paper 1.21.x)
     # ----------------------------------------------------------
     #minecraft-server = {
     #  image = "openjdk:21-jdk-slim";
