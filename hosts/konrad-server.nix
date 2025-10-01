@@ -93,36 +93,36 @@
     # -------------------------------------------------------------------------
     # traefik  (uses a secret file for the Cloudflare token)
     # -------------------------------------------------------------------------
-    traefik = {
-      image = "traefik:latest";
-      autoStart = true;
-
-      autoRemoveOnStop = false; # prevent implicit --rm
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.2"];
-
-      ports = [
-        "443:443"
-        "80:80"
-        "8085:8080" # Traefik dashboard
-      ];
-
-      volumes = [
-        "/mnt/docker-data/volumes/traefik:/etc/traefik:rw"
-        "/var/run/docker.sock:/var/run/docker.sock:rw"
-      ];
-
-      environmentFiles = [
-        "/run/secrets/traefikENV"
-      ];
-
-      environment = {
-        # Keys with dots must be quoted to be valid Nix attribute names
-        "traefik.http.routers.api.rule" = "Host(`traefik.yakweide.de`)";
-        "traefik.http.routers.api.entryPoints" = "https";
-        "traefik.http.routers.api.service" = "api@internal";
-        "traefik.enable" = "true";
-      };
-    };
+ #   traefik = {
+  #    image = "traefik:latest";
+   #   autoStart = true;
+#
+ #     autoRemoveOnStop = false; # prevent implicit --rm
+  #    extraOptions = ["--network=docker-network" "--ip=172.18.0.2"];
+#
+ #     ports = [
+  #      "443:443"
+   ##     "80:80"
+     #   "8085:8080" # Traefik dashboard
+      #];
+#
+ ##     volumes = [
+   #     "/mnt/docker-data/volumes/traefik:/etc/traefik:rw"
+    #    "/var/run/docker.sock:/var/run/docker.sock:rw"
+     # ];
+#
+ #     environmentFiles = [
+  #      "/run/secrets/traefikENV"
+   #   ];
+#
+ #     environment = {
+  ##      # Keys with dots must be quoted to be valid Nix attribute names
+    #    "traefik.http.routers.api.rule" = "Host(`traefik.yakweide.de`)";
+     #   "traefik.http.routers.api.entryPoints" = "https";
+      #  "traefik.http.routers.api.service" = "api@internal";
+       # "traefik.enable" = "true";
+      #};
+   # };
 
     # -------------------------------------------------------------------------
     # portainer
@@ -148,29 +148,24 @@
     # ----------------------------------------------------------
    # # minecraft-server (Paper 1.21.x)
     # ----------------------------------------------------------
-    #minecraft-server = {
-    #  image = "openjdk:21-jdk-slim";
-    #  autoStart = true;
-    #  autoRemoveOnStop = false;
-    #  extraOptions = ["--network=docker-network" "--ip=172.18.0.6"];
+  minecraft-server = {
+  image = "itzg/minecraft-server:latest";
+  autoStart = true;
+  autoRemoveOnStop = false;
+  extraOptions = ["--network=docker-network" "--ip=172.18.0.6"];
 
-    #  ports = ["25565:25565"];
+  ports = ["25565:25565"];
 
-    #  volumes = [
-    #      "/mnt/docker-data/volumes/minecraft:/data:rw"
-    #    ];
+  volumes = [
+    "/mnt/docker-data/volumes/minecraft:/data:rw"
+  ];
 
-    #  workdir = "/data"; # Where paper.jar lives
-    #  cmd = [
-    #    "java"
-    #    "-Xms1G" # minimum heap
-    #    "-Xmx3G" # maximum heap
-    #    "-jar"
-    #    "paper.jar"
-    #    "nogui"
-    #  ];
-
-    #  environment = {EULA = "TRUE";}; # Accept Mojang EULA
-    # };
+  environment = {
+    EULA = "TRUE"; # Lizenzbedingungen akzeptieren
+    VERSION = "LATEST"; # Die Minecraft-Version, alternativ z.B. "1.21.1"
+    # Weitere Einstellungen (RAM usw.) können hinzugefügt werden:
+    MEMORY = "12G";
+    ENABLE_RCON = "false"; # Optional: RCON deaktivieren
+    # Siehe: https://github.com/itzg/docker-minecraft-server für weitere Optionen
   };
 }
