@@ -169,3 +169,4 @@
     # Siehe: https://github.com/itzg/docker-minecraft-server für weitere Optionen
   };
 }
+}
