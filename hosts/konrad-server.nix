@@ -178,7 +178,7 @@
 
 
 
-      ];
+      
 
 
       environment = {
