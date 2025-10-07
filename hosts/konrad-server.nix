@@ -169,8 +169,13 @@
     # ----------------------------------------------------------
     minecraft-server = {
       image = "itzg/minecraft-server:latest";
+<<<<<<< HEAD
       autoStart = false;
       autoRemoveOnStop = true;
+=======
+      autoStart = true;
+      autoRemoveOnStop = false;
+>>>>>>> e08333a (changed minecraft to mainminecraft to get clean installation)
       extraOptions = ["--network=docker-network" "--ip=172.18.0.6"];
 
 
@@ -178,7 +183,7 @@
 
 
       volumes = [
-        "/mnt/docker-data/volumes/minecraft:/data:rw"
+        "/mnt/docker-data/volumes/mainminecraft:/data:rw"
       ];
 
 
@@ -186,6 +191,7 @@
         EULA = "TRUE"; # Lizenzbedingungen akzeptieren
         VERSION = "LATEST"; # Die Minecraft-Version, alternativ z.B. "1.21.1"
         # Weitere Einstellungen (RAM usw.) können hinzugefügt werden:
+        WORLD = mainworld
         MEMORY = "12G";
         WORLD = "mainworld"; # Name der Welt
         ENABLE_RCON = "false"; # Optional: RCON deaktivieren
