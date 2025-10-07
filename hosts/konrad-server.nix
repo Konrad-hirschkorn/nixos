@@ -186,7 +186,6 @@
         EULA = "TRUE"; # Lizenzbedingungen akzeptieren
         VERSION = "LATEST"; # Die Minecraft-Version, alternativ z.B. "1.21.1"
         # Weitere Einstellungen (RAM usw.) können hinzugefügt werden:
-        WORLD = mainworld
         MEMORY = "12G";
         WORLD = "mainworld"; # Name der Welt
         ENABLE_RCON = "false"; # Optional: RCON deaktivieren
