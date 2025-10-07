@@ -169,7 +169,7 @@
     # ----------------------------------------------------------
     minecraft-server = {
       image = "itzg/minecraft-server:latest";
-      autoStart = true;
+      autoStart = false;
       autoRemoveOnStop = true;
       extraOptions = ["--network=docker-network" "--ip=172.18.0.6"];
 
