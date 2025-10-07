@@ -16,6 +16,7 @@ in {
     home-manager.nixosModules.home-manager
   ];
 
+
   nix.settings = {
     # do **not** use mkForce – let other modules add their entries
     substituters = [
@@ -24,18 +25,22 @@ in {
       "https://nixos-raspberrypi.cachix.org?priority=30"
     ];
 
+
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
     ];
 
+
     trusted-users = ["root" "@wheel"];
   };
+
 
   # Add GitHub token for Nix to avoid rate limits
   nix.extraOptions = ''
     !include /run/secrets-rendered/nix-extra.conf
   '';
+
 
   # Environment Variables
   environment.variables = {
@@ -54,18 +59,23 @@ in {
     # GITHUB_TOKEN = "$(cat ${config.sops.secrets.github_token.path})";
   };
 
+
   # Enable experimental nix-command and flakes
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+
   # Increase the download buffer size
   nix.settings.download-buffer-size = 524288000;
+
 
   # Allow unfree and broken packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
 
+
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
+
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -81,6 +91,7 @@ in {
     LC_TIME = "de_DE.UTF-8";
   };
 
+
   # NixOS garbage collection
   nix.gc = {
     automatic = true;
@@ -88,11 +99,14 @@ in {
     options = "--delete-older-than 7d";
   };
 
+
   # Load the kernel module for Silicon Labs USB-to-UART bridges. For the homeassistant yellow
   boot.kernelModules = ["cp210x"];
 
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
 
   # Some programs need SUID wrappers or run in user sessions
   programs.mtr.enable = true;
@@ -101,6 +115,7 @@ in {
     enableSSHSupport = true;
   };
 
+
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
@@ -108,8 +123,10 @@ in {
     settings.PasswordAuthentication = false;
   };
 
+
   # VSCode Server
   services.vscode-server.enable = true;
+
 
   # Container
   services.spice-vdagentd.enable = true;
@@ -126,8 +143,10 @@ in {
     daemon.settings.data-root = "/mnt/docker-data";
   };
 
+
   # Unrestrict ports below 1000
   boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 0;
+
 
   # Syncthing (disabled by default)
   services.syncthing = {
@@ -154,6 +173,26 @@ in {
     };
   };
 
+
+  # --- WIREGUARD DIENST ---
+  services.envfs.enable = true;
+
+  services.wireguard = {
+    enable = true;
+    interfaces = {
+      wg0 = {
+        configFile = "/etc/wireguard/wg0.conf";
+      };
+    };
+  };
+
+  networking.firewall.allowedUDPPorts = lib.mkForce ([
+    51820
+  ] ++ (config.networking.firewall.allowedUDPPorts or []));
+
+  # Ende WireGuard Abschnitt
+
+
   users.users =
     lib.mapAttrs (_name: user: {
       isNormalUser = true;
@@ -164,8 +203,10 @@ in {
     })
     users;
 
+
   hardware.openrazer.enable = true;
   hardware.openrazer.users = ["konrad"]; # dein Username
+
 
   environment.systemPackages = with pkgs; [
     git
@@ -191,14 +232,18 @@ in {
     gnused
     getent
     nodejs
+    wireguard-ui
     
   ];
 
+
   networking.hostName = hostName;
+
 
   networking.extraHosts =
     lib.concatStringsSep "\n"
     (lib.mapAttrsToList (name: ip: "${ip} ${name}") hostIps);
+
 
   ##########################################################################
   ## Docker bridge network creation – run once at boot, ensure it exists ##
@@ -208,10 +253,13 @@ in {
     after = ["docker.service"];
     wantedBy = ["docker.service" "multi-user.target"];
 
+
     serviceConfig = {Type = "oneshot";};
+
 
     script = ''
       set -euo pipefail
+
 
       # --- Wait until Docker answers -------------------------------------------------
       for i in {1..30}; do
@@ -223,6 +271,7 @@ in {
         echo "Docker daemon did not become ready within 30 s" >&2
         exit 1
       }
+
 
       # --- Create network if missing -------------------------------------------------
       if ! ${dockerBin} network inspect docker-network >/dev/null 2>&1; then
@@ -238,6 +287,7 @@ in {
     '';
   };
 
+
   ##########################################################################
   ## Firefox GNOME theme – run once at boot, fix every user’s profile    ##
   ##########################################################################
@@ -246,7 +296,9 @@ in {
     after = ["local-fs.target"];
     wantedBy = ["multi-user.target"];
 
+
     serviceConfig = {Type = "oneshot";};
+
 
     script = ''
       # Iterate over every “real” user account
@@ -255,8 +307,10 @@ in {
         home="$(getent passwd "$user" | cut -d: -f6)"
         profileDir="$home/.mozilla/firefox/default/chrome"
 
+
         mkdir -p "$profileDir"
         [ -s "$profileDir/userContent.css" ] || : > "$profileDir/userContent.css"
+
 
         if ! grep -Fxq '@import "firefox-gnome-theme/userContent.css";' \
                       "$profileDir/userContent.css"
@@ -265,10 +319,12 @@ in {
               "$profileDir/userContent.css"
         fi
 
+
         chown -R "$user":"$(id -gn "$user")" "$home/.mozilla"
       done
     '';
   };
+
 
   ##########################################################################
   ## Discord Flatapk Rich Presence IPC socket fix                         ##
@@ -278,6 +334,7 @@ in {
     "L!     /run/user/%u/discord-ipc-0     -    -   -   -    /run/user/%u/app/com.discordapp.Discord/discord-ipc-0"
   ];
 
+
   # TTY Console
   console = {
     earlySetup = true; # apply before the login prompt
@@ -285,6 +342,7 @@ in {
     # packages = with pkgs; [terminus_font]; # make sure the PSF is present
     keyMap = "de";
   };
+
 
   home-manager.sharedModules = [
     {
@@ -304,12 +362,14 @@ in {
         };
       };
 
+
       programs.atuin = {
         enable = true;
-        # https://github.com/nix-community/home-manager/issues/5734
+        # [https://github.com/nix-community/home-manager/issues/5734](https://github.com/nix-community/home-manager/issues/5734)
       };
     }
   ];
+
 
   home-manager.users.root = {
     # Files and folders to be symlinked into home
@@ -321,6 +381,7 @@ in {
     };
   };
 
+
   virtualisation.oci-containers.containers = {
     # -------------------------------------------------------------------------
     # watchtower - automatically update containers
@@ -329,11 +390,14 @@ in {
       image = "containrrr/watchtower";
       autoStart = true;
 
+
       autoRemoveOnStop = false; # prevent implicit --rm
+
 
       volumes = [
         "/var/run/docker.sock:/var/run/docker.sock:rw"
       ];
+
 
       environment = {
         # Keep default 24-hour poll interval
@@ -348,6 +412,7 @@ in {
     };
   };
 
+
   ##########################################################################
   ## Watchtower immediate startup check service                           ##
   ##########################################################################
@@ -357,16 +422,20 @@ in {
     wants = ["docker-watchtower.service"];
     wantedBy = ["multi-user.target"];
 
+
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = false;
     };
 
+
     script = ''
       set -euo pipefail
 
+
       # Wait a moment for watchtower container to be fully started
       sleep 10
+
 
       # Run a one-time watchtower check immediately
       ${dockerBin} run --rm \
@@ -377,9 +446,11 @@ in {
         containrrr/watchtower \
         --run-once
 
+
       echo "Initial Watchtower check completed"
     '';
   };
+
 
   ##########################################################################
   ## Home directory ownership correction service                          ##
@@ -389,21 +460,25 @@ in {
     after = ["local-fs.target"];
     wantedBy = ["multi-user.target"];
 
+
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
     };
 
+
     script = ''
       set -euo pipefail
 
+
       echo "Fixing home directory ownership for all users..."
 
-      # Iterate over every "real" user account (UID >= 1000, has valid shell)
-      ${pkgs.getent}/bin/getent passwd | ${pkgs.gawk}/bin/awk -F: '$3 >= 1000 && $7 !~ /(false|nologin)/ {print $1}' |
+
+      # Iterate over every "real" user account (UID >= 1000 && $7 !~ /(false|nologin)/ {print $1}' |
       while read -r user; do
         home="$(${pkgs.getent}/bin/getent passwd "$user" | cut -d: -f6)"
-        group="$(${pkgs.coreutils}/bin/id -gn "$user" 2>/dev/null || echo "users")"
+        group="$(${pkgs.coreutils}/bin/id -gn "$user")"
+
 
         if [ -d "$home" ]; then
           echo "Fixing ownership for $user ($home)"
@@ -413,9 +488,11 @@ in {
         fi
       done
 
+
       echo "Home directory ownership correction completed"
     '';
   };
+
 
   programs.ssh = {
     extraConfig = ''
@@ -423,6 +500,7 @@ in {
       ServerAliveCountMax 3
     '';
   };
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
