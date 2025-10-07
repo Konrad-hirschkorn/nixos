@@ -169,13 +169,8 @@
     # ----------------------------------------------------------
     minecraft-server = {
       image = "itzg/minecraft-server:latest";
-<<<<<<< HEAD
       autoStart = false;
       autoRemoveOnStop = true;
-=======
-      autoStart = true;
-      autoRemoveOnStop = false;
->>>>>>> e08333a (changed minecraft to mainminecraft to get clean installation)
       extraOptions = ["--network=docker-network" "--ip=172.18.0.6"];
 
 
