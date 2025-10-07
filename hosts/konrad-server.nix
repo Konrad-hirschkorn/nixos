@@ -185,8 +185,7 @@
         EULA = "TRUE"; # Lizenzbedingungen akzeptieren
         VERSION = "LATEST"; # Die Minecraft-Version, alternativ z.B. "1.21.1"
         # Weitere Einstellungen (RAM usw.) können hinzugefügt werden:
-        MEMORY = "12G";
-        WORLD = "world"; # Name der Welt
+        MEMORY = "12G";# Name der Welt
         ENABLE_RCON = "false"; # Optional: RCON deaktivieren
         # Siehe: [https://github.com/itzg/docker-minecraft-server](https://github.com/itzg/docker-minecraft-server) für weitere Optionen
       };
