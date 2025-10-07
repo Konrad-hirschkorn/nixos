@@ -177,8 +177,7 @@
       ports = ["25565:25565"];
 
 
-      volumes = [
-        "/mnt/docker-data/volumes/mainminecraft:/data:rw"
+
       ];
 
 
