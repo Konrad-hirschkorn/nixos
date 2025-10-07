@@ -107,36 +107,36 @@
     # -------------------------------------------------------------------------
     # traefik  (uses a secret file for the Cloudflare token)
     # -------------------------------------------------------------------------
- #   traefik = {
-  #    image = "traefik:latest";
-   #   autoStart = true;
-#
- #     autoRemoveOnStop = false; # prevent implicit --rm
-  #    extraOptions = ["--network=docker-network" "--ip=172.18.0.2"];
-#
- #     ports = [
-  #      "443:443"
-   ##     "80:80"
-     #   "8085:8080" # Traefik dashboard
-      #];
-#
- ##     volumes = [
-   #     "/mnt/docker-data/volumes/traefik:/etc/traefik:rw"
-    #    "/var/run/docker.sock:/var/run/docker.sock:rw"
-     # ];
-#
- #     environmentFiles = [
-  #      "/run/secrets/traefikENV"
-   #   ];
-#
- #     environment = {
-  ##      # Keys with dots must be quoted to be valid Nix attribute names
-    #        "traefik.http.routers.api.rule" = "Host(`traefik.yakweide.de`)";
-     #       "traefik.http.routers.api.entryPoints" = "https";
-      #      "traefik.http.routers.api.service" = "api@internal";
-       #     "traefik.enable" = "true";
-      #};
-   # };
+    traefik = {
+      image = "traefik:latest";
+      autoStart = true;
+
+      autoRemoveOnStop = false; # prevent implicit --rm
+      extraOptions = ["--network=docker-network" "--ip=172.18.0.2"];
+
+      ports = [
+        "443:443"
+        "80:80"
+        "8085:8080" # Traefik dashboard
+      ];
+
+      volumes = [
+        "/mnt/docker-data/volumes/traefik:/etc/traefik:rw"
+        "/var/run/docker.sock:/var/run/docker.sock:rw"
+      ];
+
+      environmentFiles = [
+        "/run/secrets/traefikENV"
+      ];
+
+      environment = {
+        # Keys with dots must be quoted to be valid Nix attribute names
+            "traefik.http.routers.api.rule" = "Host(`traefik.yakweide.de`)";
+            "traefik.http.routers.api.entryPoints" = "https";
+          "traefik.http.routers.api.service" = "api@internal";
+            "traefik.enable" = "true";
+     };
+    };
 
 
     # -------------------------------------------------------------------------
@@ -170,7 +170,7 @@
     minecraft-server = {
       image = "itzg/minecraft-server:latest";
       autoStart = true;
-      autoRemoveOnStop = false;
+      autoRemoveOnStop = true;
       extraOptions = ["--network=docker-network" "--ip=172.18.0.6"];
 
 
@@ -187,6 +187,7 @@
         VERSION = "LATEST"; # Die Minecraft-Version, alternativ z.B. "1.21.1"
         # Weitere Einstellungen (RAM usw.) können hinzugefügt werden:
         MEMORY = "12G";
+        WORLD = "mainworld"; # Name der Welt
         ENABLE_RCON = "false"; # Optional: RCON deaktivieren
         # Siehe: [https://github.com/itzg/docker-minecraft-server](https://github.com/itzg/docker-minecraft-server) für weitere Optionen
       };
