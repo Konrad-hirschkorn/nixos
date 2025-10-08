@@ -183,7 +183,7 @@ services.wireguard-ui = {
   basicAuth = {
     enable = true;
     username = "admin";
-    password = builtins.readFile "/home/konrad/secrects/wireguard/wireguard-ui-passwd.txt";
+    password = builtins.readFile "/etc/secrets/wireguard/wireguard-ui-passwd.txt";
   };
 };
   
