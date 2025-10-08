@@ -95,36 +95,36 @@
     # -------------------------------------------------------------------------
     # traefik  (uses a secret file for the Cloudflare token)
     # -------------------------------------------------------------------------
-    traefik = {
-      image = "traefik:latest";
-      autoStart = true;
+   # traefik = {
+    #  image = "traefik:latest";
+    #  autoStart = true;
 
-      autoRemoveOnStop = false; # prevent implicit --rm
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.2"];
+    #  autoRemoveOnStop = false; # prevent implicit --rm
+    #  extraOptions = ["--network=docker-network" "--ip=172.18.0.2"];
 
-      ports = [
-        "443:443"
-        "80:80"
-        "8085:8080" # Traefik dashboard
-      ];
+    #  ports = [
+    #    "443:443"
+    #    "80:80"
+     #   "8085:8080" # Traefik dashboard
+     # ];
 
-      volumes = [
-        "/mnt/docker-data/volumes/traefik:/etc/traefik:rw"
-        "/var/run/docker.sock:/var/run/docker.sock:rw"
-      ];
+     # volumes = [
+      #  "/mnt/docker-data/volumes/traefik:/etc/traefik:rw"
+      #  "/var/run/docker.sock:/var/run/docker.sock:rw"
+      #];
 
-      environmentFiles = [
-        "/run/secrets/traefikENV"
-      ];
+      #environmentFiles = [
+     #   "/run/secrets/traefikENV"
+     # ];
 
-      environment = {
-        # Keys with dots must be quoted to be valid Nix attribute names
-        "traefik.http.routers.api.rule" = "Host(`traefik.yakweide.de`)";
-        "traefik.http.routers.api.entryPoints" = "https";
-        "traefik.http.routers.api.service" = "api@internal";
-        "traefik.enable" = "true";
-      };
-    };
+     # environment = {
+      #  # Keys with dots must be quoted to be valid Nix attribute names
+      #  "traefik.http.routers.api.rule" = "Host(`traefik.yakweide.de`)";
+      #  "traefik.http.routers.api.entryPoints" = "https";
+      #  "traefik.http.routers.api.service" = "api@internal";
+      #  "traefik.enable" = "true";
+     # };
+    #};
 
     # -------------------------------------------------------------------------
     # portainer
