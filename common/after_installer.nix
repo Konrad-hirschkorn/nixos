@@ -37,8 +37,8 @@
       networkmanager-openvpn
     ];
 
-    networkmanager.ensureProfiles.environmentFiles = [
-      "/run/secrets/wifiENV"
+   # networkmanager.ensureProfiles.environmentFiles = [
+    #  "/run/secrets/wifiENV"
     ];
 
     networkmanager.ensureProfiles.profiles = {
