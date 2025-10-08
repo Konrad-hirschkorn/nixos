@@ -175,7 +175,7 @@ in {
 
 
   # --- WIREGUARD DIENST ---
- {
+
 services.wireguard-ui = {
   enable = true;
   package = pkgs.wireguard-ui;
