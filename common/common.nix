@@ -175,19 +175,7 @@ in {
 
 
   # --- WIREGUARD DIENST ---
-
-services.wireguard-ui = {
-  enable = true;
-  package = pkgs.wireguard-ui;
-  listen = "0.0.0.0:5000";
-  basicAuth = {
-    enable = true;
-    username = "admin";
-    password = builtins.readFile "/etc/secrets/wireguard/wireguard-ui-passwd.txt";
-  };
-};
-  
-networking.wireguard = {
+services.wireguard = {
   enable = true;
   interfaces = {
     wg0 = {
@@ -196,7 +184,6 @@ networking.wireguard = {
     };
   };
 };
-
 
   # Ende WireGuard Abschnitt
 
