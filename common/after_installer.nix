@@ -30,7 +30,7 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable entirely:
   networking = {
-    firewall.enable = false;
+    firewall.enable = true;
     networkmanager.enable = true;
 
     networkmanager.plugins = with pkgs; [

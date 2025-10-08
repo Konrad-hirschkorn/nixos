@@ -64,10 +64,12 @@
       8123 # Home Assistant
       9001 # Portainer agent
       25565 # Minecraft server
+      51820 # WireGuard VPN
     ];
 
     # UDP ports to open
     allowedUDPPorts = [
+      51820   # WireGuard VPN UDP-Port
     ];
 
     # ICMP (ping) is allowed separately
