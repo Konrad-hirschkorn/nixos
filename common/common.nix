@@ -221,15 +221,20 @@ in {
     nodejs
     wireguard-ui
     wireguard-tools
+    nftables
   ];
 
 
-  networking.hostName = hostName;
+  networking = {
+    firewall.backend = "nftables";
+    firewall.enable = true;
 
+    # Öffne UDP-Port 51820 für WireGuard
+    allowedUDPPorts = [ 51820 ];
 
-  networking.extraHosts =
-    lib.concatStringsSep "\n"
-    (lib.mapAttrsToList (name: ip: "${ip} ${name}") hostIps);
+    hostName = hostName;
+    extraHosts = lib.concatStringsSep "\n" (lib.mapAttrsToList (name: ip: "${ip} ${name}") hostIps);
+  };
 
 
   ##########################################################################
