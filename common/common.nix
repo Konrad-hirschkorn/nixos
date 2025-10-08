@@ -175,15 +175,7 @@ in {
 
 
   # --- WIREGUARD DIENST ---
-services.wireguard = {
-  enable = true;
-  interfaces = {
-    wg0 = {
-      privateKeyFile = "/etc/wireguard/privatekey";
-      ips = [ "10.0.0.1/24" ];
-    };
-  };
-};
+
 
   # Ende WireGuard Abschnitt
 
