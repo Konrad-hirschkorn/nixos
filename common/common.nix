@@ -175,20 +175,31 @@ in {
 
 
   # --- WIREGUARD DIENST ---
-  services.envfs.enable = true;
-
-  services.wireguard = {
+ {
+services.wireguard-ui = {
+  enable = true;
+  package = pkgs.wireguard-ui;
+  listen = "0.0.0.0:5000";
+  basicAuth = {
+    enable = true;
+    username = "admin";
+    password = builtins.readFile "/home/konrad/secrects/wireguard/wireguard-ui-passwd.txt";
+  };
+};
+  
+  networking.wireguard = {
+    # Ev. Interface wg0 konfigurieren, falls noch nicht geschehen
+    # z.B.:
     enable = true;
     interfaces = {
       wg0 = {
-        configFile = "/etc/wireguard/wg0.conf";
+        privateKeyFile = "/etc/wireguard/privatekey";
+        ips = [ "10.0.0.1/24" ];
+        # peers etc.
       };
     };
   };
-
-  networking.firewall.allowedUDPPorts = lib.mkForce ([
-    51820
-  ] ++ (config.networking.firewall.allowedUDPPorts or []));
+}
 
   # Ende WireGuard Abschnitt
 
