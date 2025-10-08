@@ -39,7 +39,7 @@
 
    # networkmanager.ensureProfiles.environmentFiles = [
     #  "/run/secrets/wifiENV"
-    ];
+    #];
 
     networkmanager.ensureProfiles.profiles = {
       "iocto_guest" = {
