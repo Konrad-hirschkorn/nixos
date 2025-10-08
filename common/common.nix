@@ -225,16 +225,17 @@ in {
   ];
 
 
-  networking = {
-    firewall.backend = "nftables";
-    firewall.enable = true;
+networking = {
+  firewall.backend = "nftables";
+  firewall.enable = true;
 
-    # Öffne UDP-Port 51820 für WireGuard
-    allowedUDPPorts = [ 51820 ];
+  # Öffne UDP-Port 51820 für WireGuard
+  firewall.allowedUDPPorts = [ 51820 ];
 
-    hostName = hostName;
-    extraHosts = lib.concatStringsSep "\n" (lib.mapAttrsToList (name: ip: "${ip} ${name}") hostIps);
-  };
+  hostName = hostName;
+  extraHosts = lib.concatStringsSep "\n" (lib.mapAttrsToList (name: ip: "${ip} ${name}") hostIps);
+};
+
 
 
   ##########################################################################
