@@ -75,5 +75,7 @@ in {
     virt-viewer
     libvirt
     virt-manager
+    wireguard-ui
+    
   ];
 }
