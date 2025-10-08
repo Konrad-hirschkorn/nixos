@@ -228,7 +228,7 @@ services.wireguard = {
     getent
     nodejs
     wireguard-ui
-    
+    wireguard-tools
   ];
 
 
