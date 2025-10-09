@@ -226,10 +226,7 @@ in {
 
 
 networking = {
-  firewall.backend = "nftables";
   firewall.enable = true;
-
-  # Öffne UDP-Port 51820 für WireGuard
   firewall.allowedUDPPorts = [ 51820 ];
 
   hostName = hostName;

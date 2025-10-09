@@ -76,6 +76,6 @@ in {
     libvirt
     virt-manager
     wireguard-ui
-    
+    iptables
   ];
 }
