@@ -223,6 +223,7 @@ in {
     wireguard-ui
     wireguard-tools
     nftables
+    tcpdump
   ];
 
 
