@@ -156,7 +156,7 @@
       autoRemoveOnStop = false;
       extraOptions = ["--network=docker-network" "--ip=172.18.0.6"];
 
-      ports = ["25565:25565"];
+      ports = ["0.0.0.0:25565:25565"];
 
 
 
