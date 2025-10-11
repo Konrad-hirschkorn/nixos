@@ -141,6 +141,7 @@ in {
     rootless.setSocketVariable = true;
     # daemon.settings.ipv6 = true
     daemon.settings.data-root = "/mnt/docker-data";
+     daemon.settings.dns = [ "1.1.1.1" "8.8.8.8" ];
   };
 
 
