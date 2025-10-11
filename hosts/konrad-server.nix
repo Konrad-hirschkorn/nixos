@@ -69,7 +69,7 @@
 
     # UDP ports to open
     allowedUDPPorts = [
-      51820   # WireGuard VPN UDP-Port
+      51820 # WireGuard VPN UDP-Port
     ];
 
     # ICMP (ping) is allowed separately
@@ -95,7 +95,7 @@
     # -------------------------------------------------------------------------
     # traefik  (uses a secret file for the Cloudflare token)
     # -------------------------------------------------------------------------
-   # traefik = {
+    # traefik = {
     #  image = "traefik:latest";
     #  autoStart = true;
 
@@ -105,25 +105,25 @@
     #  ports = [
     #    "443:443"
     #    "80:80"
-     #   "8085:8080" # Traefik dashboard
-     # ];
+    #   "8085:8080" # Traefik dashboard
+    # ];
 
-     # volumes = [
-      #  "/mnt/docker-data/volumes/traefik:/etc/traefik:rw"
-      #  "/var/run/docker.sock:/var/run/docker.sock:rw"
-      #];
+    # volumes = [
+    #  "/mnt/docker-data/volumes/traefik:/etc/traefik:rw"
+    #  "/var/run/docker.sock:/var/run/docker.sock:rw"
+    #];
 
-      #environmentFiles = [
-     #   "/run/secrets/traefikENV"
-     # ];
+    #environmentFiles = [
+    #   "/run/secrets/traefikENV"
+    # ];
 
-     # environment = {
-      #  # Keys with dots must be quoted to be valid Nix attribute names
-      #  "traefik.http.routers.api.rule" = "Host(`traefik.yakweide.de`)";
-      #  "traefik.http.routers.api.entryPoints" = "https";
-      #  "traefik.http.routers.api.service" = "api@internal";
-      #  "traefik.enable" = "true";
-     # };
+    # environment = {
+    #  # Keys with dots must be quoted to be valid Nix attribute names
+    #  "traefik.http.routers.api.rule" = "Host(`traefik.yakweide.de`)";
+    #  "traefik.http.routers.api.entryPoints" = "https";
+    #  "traefik.http.routers.api.service" = "api@internal";
+    #  "traefik.enable" = "true";
+    # };
     #};
 
     # -------------------------------------------------------------------------
@@ -154,11 +154,9 @@
       image = "itzg/minecraft-server:latest";
       autoStart = true;
       autoRemoveOnStop = false;
-      extraOptions = [ "--network=docker-network" "--ip=172.18.0.6" ];
+      extraOptions = ["--network=docker-network" "--ip=172.18.0.6"];
 
       ports = ["0.0.0.0:25565:25565"];
-
-
 
       volumes = [
         "/mnt/docker-data/volumes/minecraft:/data:rw"
@@ -170,19 +168,20 @@
         MEMORY = "12G";
         ENABLE_RCON = "false";
 
-    ENFORCE_WHITELIST = "TRUE";
+        ENFORCE_WHITELIST = "TRUE";
 
+        OVERRIDE_WHITELIST = "TRUE";
 
-    OVERRIDE_WHITELIST = "TRUE";
+        # Die Spielernamen als mehrzeiliger String für die WHITELIST-Variable
+        WHITELIST = ''
+          KONRAD_1312
+          schle1cherr
+          Hamburgerficker
+          Oak_1312
+          machseweck
 
-    # Die Spielernamen als mehrzeiliger String für die WHITELIST-Variable
-    WHITELIST = ''
-      KONRAD_1312
-      schle1cherr
-      Hamburgerficker
-      Oak_1312
-      machseweck
-
-    '';
+        '';
+      };
+    };
   };
-};
+}
