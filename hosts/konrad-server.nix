@@ -165,7 +165,6 @@
       ];
 
       environment = {
-        WHITELIST = "true";
         EULA = "TRUE";
         VERSION = "LATEST";
         MEMORY = "12G";
