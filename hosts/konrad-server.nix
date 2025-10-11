@@ -154,7 +154,7 @@
       image = "itzg/minecraft-server:latest";
       autoStart = true;
       autoRemoveOnStop = false;
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.6"];
+      extraOptions = [ "--network=docker-network" "--ip=172.18.0.6" ];
 
       ports = ["0.0.0.0:25565:25565"];
 
@@ -165,11 +165,25 @@
       ];
 
       environment = {
+        WHITELIST = "true";
         EULA = "TRUE";
         VERSION = "LATEST";
         MEMORY = "12G";
         ENABLE_RCON = "false";
-      };
-    };
+
+    ENFORCE_WHITELIST = "TRUE";
+
+
+    OVERRIDE_WHITELIST = "TRUE";
+
+    # Die Spielernamen als mehrzeiliger String für die WHITELIST-Variable
+    WHITELIST = ''
+      KONRAD_1312
+      schle1cherr
+      Hamburgerficker
+      Oak_1312
+      machseweck
+
+    '';
   };
-}
+};
