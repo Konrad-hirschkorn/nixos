@@ -76,7 +76,7 @@
     allowPing = true;
   };
 
-  networking.wiregrid.interfaces.wg0 = {
+  networking.wireguard.interfaces.wg0 = {
     # Die private IPv4-Adresse deines Homeservers im Tunnel
     ips = ["172.31.0.99/24"];
 
