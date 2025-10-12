@@ -76,6 +76,33 @@
     allowPing = true;
   };
 
+  networking.wiregrid.interfaces.wg0 = {
+    # Die private IPv4-Adresse deines Homeservers im Tunnel
+    ips = ["172.31.0.99/24"];
+
+    # Gib hier den Pfad zu der Datei an, in der dein privater Schlüssel liegt.
+    privateKeyFile = "/etc/wireguard/server_private.key";
+
+    listenPort = 51820;
+    mtu = 1420;
+
+    peers = [
+      {
+        # Dies ist dein VPS
+        publicKey = "e80QTHVzssveF/d4ylLhnq06+pHLt27L/pl/cqC5TRg=";
+
+        # Die ÖFFENTLICHE IPv6-Adresse deines VPS (in eckigen Klammern!)
+        # ERSETZE DIESEN PLATZHALTER!
+        endpoint = "[e80::1:8dff:feba:6998]:51820";
+
+        # Erlaubt ist die private IPv4-Adresse des VPS
+        allowedIPs = ["172.31.0.1/32"];
+
+        persistentKeepalive = 25;
+      }
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
   ];
 
