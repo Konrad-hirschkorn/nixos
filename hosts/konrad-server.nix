@@ -71,7 +71,7 @@
     allowedUDPPorts = [
       51820 # WireGuard VPN UDP-Port
     ];
-    networking.firewall.trustedInterfaces = ["docker0"];
+    trustedInterfaces = ["docker0"];
     # ICMP (ping) is allowed separately
     allowPing = true;
   };
