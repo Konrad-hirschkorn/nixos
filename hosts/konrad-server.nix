@@ -93,7 +93,7 @@
 
         # Die ÖFFENTLICHE IPv6-Adresse deines VPS (in eckigen Klammern!)
         # ERSETZE DIESEN PLATZHALTER!
-        endpoint = "[e80::1:8dff:feba:6998]:51820";
+        endpoint = "[2a02:2479:75:2a00::1]:51820";
 
         # Erlaubt ist die private IPv4-Adresse des VPS
         allowedIPs = ["172.31.0.1/32"];
