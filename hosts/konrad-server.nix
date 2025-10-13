@@ -41,45 +41,55 @@
 
   # Machine specific configurations
   environment.variables.SERVER = "1";
-  networking = {
-    networkmanager = {
-      enable = true; # Gehe davon aus, dass das in deinem common.nix steht, ansonsten hier hinzufügen
-      insertNameservers = [
-        "1.1.1.1" # Primary: Cloudflare DNS
-        "8.8.8.8" # Backup: Google DNS
-        "2606:4700:4700::1111" # Cloudflare IPv6
-        "2001:4860:4860::8888" # Google DNS IPv6
-      ];
-      # DIESE ZEILE IST NEU UND ENTSCHEIDEND:
-      unmanaged = ["interface-name:wg0"];
-    };
 
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [22 80 443 2283 3080 4743 8123 9001 25565];
-      allowedUDPPorts = [51820];
-      trustedInterfaces = ["docker0"];
-      allowPing = true;
-    };
+  networking.networkmanager.insertNameservers = [
+    "1.1.1.1" # Primary: Cloudflare DNS
+    "8.8.8.8" # Backup: Google DNS
+    "2606:4700:4700::1111" # Cloudflare IPv6
+    "2001:4860:4860::8888" # Google DNS IPv6
+  ];
 
-    wireguard = {
-      enable = true;
-      interfaces = {
-        wg0 = {
-          ips = ["172.31.0.99/24"];
-          privateKeyFile = "/etc/wireguard/server_private.key";
-          listenPort = 51820;
-          mtu = 1420;
-          peers = [
-            {
-              publicKey = "e80QTHVzssveF/d4ylLhnq06+pHLt27L/pl/cqC5TRg=";
-              endpoint = "[2a02:2479:75:2a00::1]:51820";
-              allowedIPs = ["172.31.0.1/32"];
-              persistentKeepalive = 25;
-            }
-          ];
-        };
-      };
+  networking.firewall = {
+    enable = true;
+    # TCP ports to open
+    allowedTCPPorts = [
+      22 # SSH
+      80 # Traefik HTTP
+      443 # HTTPS / Traefik
+      2283 # Immich server
+      3080 # LibreChat
+      4743 # Vaultwarden
+      8123 # Home Assistant
+      9001 # Portainer agent
+      25565 # Minecraft server
+    ];
+    # WireGuard UDP-Port entfernt, da nicht mehr benötigt
+    allowedUDPPorts = [];
+    trustedInterfaces = ["docker0"];
+    allowPing = true;
+  };
+
+  # Der WireGuard-Block wurde komplett entfernt.
+  # Stattdessen wird der folgende systemd-Dienst für den SSH-Tunnel verwendet.
+
+  systemd.services.minecraft-tunnel = {
+    description = "SSH Reverse Tunnel for Minecraft Server";
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      # Wichtig: Als dein normaler Benutzer ausführen, nicht als root
+      User = "konrad";
+
+      # Der Befehl, der den Tunnel aufbaut
+      ExecStart = ''
+        ${pkgs.openssh}/bin/ssh -N -R 0.0.0.0:25565:localhost:25565 -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes root@82.165.145.27
+      '';
+
+      # Immer neu starten, wenn der Dienst fehlschlägt
+      Restart = "always";
+      RestartSec = "10";
     };
   };
 
