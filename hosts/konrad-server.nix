@@ -41,40 +41,44 @@
 
   # Machine specific configurations
   environment.variables.SERVER = "1";
+  networking = {
+    networkmanager = {
+      enable = true; # Gehe davon aus, dass das in deinem common.nix steht, ansonsten hier hinzufügen
+      insertNameservers = [
+        "1.1.1.1" # Primary: Cloudflare DNS
+        "8.8.8.8" # Backup: Google DNS
+        "2606:4700:4700::1111" # Cloudflare IPv6
+        "2001:4860:4860::8888" # Google DNS IPv6
+      ];
+      # DIESE ZEILE IST NEU UND ENTSCHEIDEND:
+      unmanaged = ["interface-name:wg0"];
+    };
 
-  networking.networkmanager.insertNameservers = [
-    "1.1.1.1" # Primary: Cloudflare DNS
-    "8.8.8.8" # Backup: Google DNS
-    "2606:4700:4700::1111" # Cloudflare IPv6
-    "2001:4860:4860::8888" # Google DNS IPv6
-  ];
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [22 80 443 2283 3080 4743 8123 9001 25565];
+      allowedUDPPorts = [51820];
+      trustedInterfaces = ["docker0"];
+      allowPing = true;
+    };
 
-  # KORRIGIERTER UND ZUSAMMENGEFASSTER NETWORKING-BLOCK
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [ 22 80 443 2283 3080 4743 8123 9001 25565 ];
-    allowedUDPPorts = [ 51820 ];
-    trustedInterfaces = [ "docker0" ];
-    allowPing = true;
-  };
-
-  # KORRIGIERTER WIREGUARD-BLOCK
-  networking.wireguard = {
-    enable = true;
-    interfaces = {
-      wg0 = {
-        ips = [ "172.31.0.99/24" ];
-        privateKeyFile = "/etc/wireguard/server_private.key";
-        listenPort = 51820;
-        mtu = 1420;
-        peers = [
-          {
-            publicKey = "e80QTHVzssveF/d4ylLhnq06+pHLt27L/pl/cqC5TRg=";
-            endpoint = "[2a02:2479:75:2a00::1]:51820";
-            allowedIPs = [ "172.31.0.1/32" ];
-            persistentKeepalive = 25;
-          }
-        ];
+    wireguard = {
+      enable = true;
+      interfaces = {
+        wg0 = {
+          ips = ["172.31.0.99/24"];
+          privateKeyFile = "/etc/wireguard/server_private.key";
+          listenPort = 51820;
+          mtu = 1420;
+          peers = [
+            {
+              publicKey = "e80QTHVzssveF/d4ylLhnq06+pHLt27L/pl/cqC5TRg=";
+              endpoint = "[2a02:2479:75:2a00::1]:51820";
+              allowedIPs = ["172.31.0.1/32"];
+              persistentKeepalive = 25;
+            }
+          ];
+        };
       };
     };
   };
@@ -133,4 +137,3 @@
     };
   };
 }
-
