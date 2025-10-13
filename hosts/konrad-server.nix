@@ -69,28 +69,31 @@
     allowPing = true;
   };
 
-  # Der WireGuard-Block wurde komplett entfernt.
-  # Stattdessen wird der folgende systemd-Dienst für den SSH-Tunnel verwendet.
+  networking.wireguard.interfaces.wg0 = {
+    # Die private IPv4-Adresse deines Homeservers im Tunnel
+    ips = ["172.31.0.99/24"];
 
-  systemd.services.minecraft-tunnel = {
-    description = "SSH Reverse Tunnel for Minecraft Server";
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
+    # Gib hier den Pfad zu der Datei an, in der dein privater Schlüssel liegt.
+    privateKeyFile = "/etc/wireguard/server_private.key";
 
-    serviceConfig = {
-      # Wichtig: Als dein normaler Benutzer ausführen, nicht als root
-      User = "konrad";
+    listenPort = 51820;
+    mtu = 1420;
 
-      # Der Befehl, der den Tunnel aufbaut
-      ExecStart = ''
-        ${pkgs.openssh}/bin/ssh -N -R 0.0.0.0:25565:localhost:25565 -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes root@82.165.145.27
-      '';
+    peers = [
+      {
+        # Dies ist dein VPS
+        publicKey = "e80QTHVzssveF/d4ylLhnq06+pHLt27L/pl/cqC5TRg=";
 
-      # Immer neu starten, wenn der Dienst fehlschlägt
-      Restart = "always";
-      RestartSec = "10";
-    };
+        # Die ÖFFENTLICHE IPv6-Adresse deines VPS (in eckigen Klammern!)
+        # ERSETZE DIESEN PLATZHALTER!
+        endpoint = "[2a02:2479:75:2a00::1]:51820";
+
+        # Erlaubt ist die private IPv4-Adresse des VPS
+        allowedIPs = ["172.31.0.1/32"];
+
+        persistentKeepalive = 25;
+      }
+    ];
   };
 
   environment.systemPackages = with pkgs; [];
