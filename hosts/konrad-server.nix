@@ -181,7 +181,7 @@
       image = "itzg/minecraft-server:latest";
       autoStart = true;
       autoRemoveOnStop = false;
-      extraOptions = ["--network=docker-network" "--ip=172.18.0.6"];
+      #extraOptions = ["--network=docker-network" "--ip=172.18.0.6"];
 
       ports = ["0.0.0.0:25565:25565"];
 
