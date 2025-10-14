@@ -140,7 +140,7 @@
         WHITELIST = ''
           KONRAD_1312
           schle1cherr
-          Hamburgerficker
+          xlHamburger
           Oak_1312
           machseweck
         '';
