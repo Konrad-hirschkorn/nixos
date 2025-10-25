@@ -135,8 +135,8 @@
         VERSION = "LATEST";
         MEMORY = "12G";
         ENABLE_RCON = "false";
-
-    };
+        ENABLE_WHITELIST = "false";
+      };
     };
   };
 }
