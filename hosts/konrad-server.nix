@@ -136,8 +136,7 @@
         MEMORY = "12G";
         ENABLE_RCON = "false";
 
-        ;
-      };
+    };
     };
   };
 }
