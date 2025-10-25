@@ -136,7 +136,7 @@
         MEMORY = "12G";
         ENABLE_RCON = "false";
         ENFORCE_WHITELIST = "TRUE";
-        OVERRIDE_WHITELIST = "TRUE";
+        OVERRIDE_WHITELIST = "FALSE";
         WHITELIST = ''
           KONRAD_1312
           schle1cherr
