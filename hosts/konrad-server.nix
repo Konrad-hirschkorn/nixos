@@ -135,14 +135,14 @@
         VERSION = "LATEST";
         MEMORY = "12G";
         ENABLE_RCON = "false";
-        ENFORCE_WHITELIST = "TRUE";
+        ENFORCE_WHITELIST = "FALSE";
         OVERRIDE_WHITELIST = "FALSE";
         WHITELIST = ''
           KONRAD_1312
           schle1cherr
           xlHamburger
           Oak_1312
-          MachSeWeck
+          _MachSeWeck_
         '';
       };
     };
