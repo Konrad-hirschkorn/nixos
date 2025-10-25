@@ -142,7 +142,7 @@
           schle1cherr
           xlHamburger
           Oak_1312
-          machseweck
+          MachSeWeck
         '';
       };
     };
