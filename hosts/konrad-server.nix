@@ -136,7 +136,6 @@
         MEMORY = "12G";
         ENABLE_RCON = "true";
         ENABLE_WHITELIST = "false";
-        ONLINE_MODE = "false";
       };
     };
   };
