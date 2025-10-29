@@ -134,7 +134,7 @@
         EULA = "TRUE";
         VERSION = "LATEST";
         MEMORY = "12G";
-        ENABLE_RCON = "false";
+        ENABLE_RCON = "true";
         ENABLE_WHITELIST = "false";
       };
     };
