@@ -137,6 +137,7 @@
         ENABLE_RCON = "true";
         ENABLE_WHITELIST = "false";
         ONLINE_MODE = "true";
+        DIFFICULTY = "hard";
       };
     };
   };
