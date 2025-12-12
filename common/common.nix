@@ -53,13 +53,7 @@ in {
   nix.settings.download-buffer-size = 524288000;
 
   # HIER: unsicheres Paket erlauben
-  nixpkgs.config = {
-    allowUnfree = true;
-    allowBroken = true;
-    permittedInsecurePackages = [
-      "electron-36.9.5"
-    ];
-  };
+
 
   time.timeZone = "Europe/Berlin";
 
