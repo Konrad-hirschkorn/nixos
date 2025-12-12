@@ -1,14 +1,13 @@
 {
   inputs = {
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05"; # Stable channel for everything else
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # Unstable channel
-    nixos-wsl.url = "github:nix-community/NixOS-WSL"; # NixOS WSL
-    nixpkgs-oldvscode.url = "github:NixOS/nixpkgs/333d19c8b58402b94834ec7e0b58d83c0a0ba658"; # vscode 1.98.2
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nixpkgs-oldvscode.url = "github:NixOS/nixpkgs/333d19c8b58402b94834ec7e0b58d83c0a0ba658";
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/v3.1.0";
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
 
     alejandra = {
-      # Nix formatter
       url = "github:kamadorueda/alejandra/4.0.0";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
@@ -65,7 +64,6 @@
     };
   };
 
-  # Optional: Binary cache for the nixos-raspberrypi flake
   nixConfig = {
     extra-substituters = ["https://nixos-raspberrypi.cachix.org"];
     extra-trusted-public-keys = [
@@ -92,9 +90,6 @@
     claude,
     ...
   }: let
-    # ────────────────────────────────────────────────────────────────
-    # Set IP Addresses for each host here
-    # ────────────────────────────────────────────────────────────────
     hostIps = {
       "konrad-laptop" = "10.0.0.25";
       "konrad-pc" = "10.0.0.3";
@@ -105,15 +100,12 @@
       "pihole.local.yakweide.de" = "10.0.0.2";
     };
 
-    # ────────────────────────────────────────────────────────────────
-    # Set User Information here
-    # ────────────────────────────────────────────────────────────────
     users = {
       konrad = {
         fullName = "Konrad Hirschkorn";
         gitUsername = "Konrad-hirschkorn";
         gitEmail = "konrad.hirschkorn@gmail.com";
-        hashedPassword = "$6$Kz1nBiLtUiNHtmei$cMGqIjNE9zoWrY4wy5LQT7gI2aGXczlsQajTfkaFgkDmmipyEuAeIHUS1MsuanmJnjEEYXdfOnjaoSLRHHoSO1"; # sha-512 crypt
+        hashedPassword = "$6$Kz1nBiLtUiNHtmei$cMGqIjNE9zoWrY4wy5LQT7gI2aGXczlsQajTfkaFgkDmmipyEuAeIHUS1MsuanmJnjEEYXdfOnjaoSLRHHoSO1";
         authorizedKeys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID9CPAbuRYetl4yuI21KUL0DkDWm/a6XtElIrT497bjs KonradHirschkorn"
         ];
@@ -155,7 +147,6 @@
             backupPaths
             ;
 
-          # This node’s own IP
           ip = hostIps.${hostName};
         };
 
@@ -163,27 +154,10 @@
           disko.nixosModules.disko
           flatpaks.nixosModule
           vscode-server.nixosModules.default
+          (import hostFile)
+        ];
+      };
 
-          # unsicheres Electron global erlauben
-         outputs = { self, nixpkgs }: {
-  nixosConfigurations.your-hostname = nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
-    modules = [
-      disko.nixosModules.disko
-      flatpaks.nixosModule
-      vscode-server.nixosModules.default
-      (import hostFile)
-    ];
-    config = {
-      nixpkgs.config.permittedInsecurePackages = [ "electron-36.9.5" ];
-    };
-  };
-};
-
-
-    # ────────────────────────────────────────────────────────────────
-    # Host Configurations
-    # ────────────────────────────────────────────────────────────────
     nixosConfigurations = {
       konrad-laptop = self.mkSystem {
         hostFile = ./hosts/konrad-laptop.nix;
@@ -251,7 +225,6 @@
             }
             vscode-server.nixosModules.default
             ./hosts/homeassistant-yellow.nix
-
             ({
               config,
               pkgs,
