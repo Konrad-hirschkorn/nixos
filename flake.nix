@@ -8,7 +8,7 @@
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
 
     alejandra = {
-      # Nix formatter -> https://drakerossman.com/blog/overview-of-nix-formatters-ecosystem
+      # Nix formatter
       url = "github:kamadorueda/alejandra/4.0.0";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
@@ -93,7 +93,7 @@
     ...
   }: let
     # ────────────────────────────────────────────────────────────────
-    # Set IP Addresses for each host here, this will also be imported into pihole locale dns
+    # Set IP Addresses for each host here
     # ────────────────────────────────────────────────────────────────
     hostIps = {
       "konrad-laptop" = "10.0.0.25";
@@ -103,7 +103,6 @@
       "homeassistant-yellow" = "10.0.0.2";
       "traefik.local.yakweide.de" = "10.0.0.2";
       "pihole.local.yakweide.de" = "10.0.0.2";
-      # add more hosts here …
     };
 
     # ────────────────────────────────────────────────────────────────
@@ -117,10 +116,8 @@
         hashedPassword = "$6$Kz1nBiLtUiNHtmei$cMGqIjNE9zoWrY4wy5LQT7gI2aGXczlsQajTfkaFgkDmmipyEuAeIHUS1MsuanmJnjEEYXdfOnjaoSLRHHoSO1"; # sha-512 crypt
         authorizedKeys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID9CPAbuRYetl4yuI21KUL0DkDWm/a6XtElIrT497bjs KonradHirschkorn"
-          # add more keys here …
         ];
       };
-      # add more people here …
     };
 
     userBackupDirs = ["Coding" "Downloads" "Desktop" "Documents" "Pictures" "Videos" "Music" "Public" "Templates"];
@@ -166,6 +163,13 @@
           disko.nixosModules.disko
           flatpaks.nixosModule
           vscode-server.nixosModules.default
+
+          # unsicheres Electron global erlauben
+          ({ ... }: {
+            nixpkgs.config.permittedInsecurePackages = [
+              "electron-36.9.5"
+            ];
+          })
 
           (import hostFile)
         ];
@@ -242,7 +246,6 @@
             vscode-server.nixosModules.default
             ./hosts/homeassistant-yellow.nix
 
-            # Make the mapping (+ /etc/hosts entries) available everywhere
             ({
               config,
               pkgs,
