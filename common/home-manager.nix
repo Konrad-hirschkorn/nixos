@@ -27,7 +27,7 @@ in {
   # Home Manager individual user configuration
   home-manager.users = lib.mapAttrs (_name: user:
     {
-      home.stateVersion = "25.11";
+      home.stateVersion = "25.05";
 
       programs.git = {
         enable = true;
