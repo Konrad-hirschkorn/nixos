@@ -165,15 +165,21 @@
           vscode-server.nixosModules.default
 
           # unsicheres Electron global erlauben
-          ({ ... }: {
-            nixpkgs.config.permittedInsecurePackages = [
-              "electron-36.9.5"
-            ];
-          })
+         outputs = { self, nixpkgs }: {
+  nixosConfigurations.your-hostname = nixpkgs.lib.nixosSystem {
+    system = "x86_64-linux";
+    modules = [
+      disko.nixosModules.disko
+      flatpaks.nixosModule
+      vscode-server.nixosModules.default
+      (import hostFile)
+    ];
+    config = {
+      nixpkgs.config.permittedInsecurePackages = [ "electron-36.9.5" ];
+    };
+  };
+};
 
-          (import hostFile)
-        ];
-      };
 
     # ────────────────────────────────────────────────────────────────
     # Host Configurations
