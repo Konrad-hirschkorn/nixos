@@ -56,7 +56,7 @@ in {
   nixpkgs.config = {
     allowUnfree = true;
     allowBroken = true;
-    permittedInsecurePackages = [ "electron-36.9.5" ];
+
   };
 
   time.timeZone = "Europe/Berlin";
