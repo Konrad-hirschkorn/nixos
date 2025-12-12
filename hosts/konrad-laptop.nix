@@ -11,6 +11,12 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
 
+  users.users.konrad = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" ];
+    home = "/home/konrad";
+  };
+
   hardware = {
     i2c.enable = true;
 
