@@ -27,6 +27,8 @@ in {
   # Home Manager individual user configuration
   home-manager.users = lib.mapAttrs (_name: user:
     {
+      home.stateVersion = "25.11";
+
       programs.git = {
         enable = true;
         userName = user.gitUsername;
@@ -40,6 +42,7 @@ in {
           core.eol = "lf";
         };
       };
+
       home.file = {
         ".config/hypr/hyprland.conf" = {
           source = builtins.toPath ../files/hypr/hyprland.conf;
