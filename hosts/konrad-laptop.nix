@@ -25,10 +25,8 @@
       DisablePlugins = "hostname";
     };
   };
- {
-      permittedInsecurePackages = [
-        "electron-36.9.5"
-      ];
-    };
-  };
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-36.9.5"
+  ];
 }
