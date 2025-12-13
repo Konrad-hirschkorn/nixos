@@ -1,9 +1,0 @@
-# sops.yaml  (or .sops.yaml)
-keys:
-  - &konrad age13sf35tlpdqw0hew930yyj4nt6nnsupv3gw6zxhj9k6vx9cykwuvs9u54tl
-
-creation_rules:
-  - path_regex: (^|/)secrets/secrets\.ya?ml$
-    key_groups:
-      - age:
-          - *konrad
